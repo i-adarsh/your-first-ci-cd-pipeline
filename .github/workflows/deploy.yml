@@ -1,5 +1,9 @@
 name: Deploy DevOps HQ Website
 
+permissions:
+  contents: write
+  pages: write
+
 on:
   push:
     branches: [main]
