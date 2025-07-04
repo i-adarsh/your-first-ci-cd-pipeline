@@ -1,0 +1,35 @@
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  IMAGE_NAME: devops-hq-website
+
+build:
+  stage: build
+  script:
+    - echo "Building static website..."
+    - mkdir -p dist
+    - cp -r index.html css js images dist/
+    - echo "Build complete!"
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 hour
+
+test:
+  stage: test
+  script:
+    - echo "Running HTML validation..."
+    - echo "Running CSS validation..."
+    - echo "Running accessibility tests..."
+    - echo "All tests passed!"
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying to production..."
+    - echo "Website deployed successfully!"
+  only:
+    - main

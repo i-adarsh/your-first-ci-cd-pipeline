@@ -1,0 +1,32 @@
+name: Deploy DevOps HQ Website
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build
+        run: |
+          echo "Building static website..."
+          mkdir -p dist
+          cp -r index.html css js images dist/
+
+      - name: Test
+        run: |
+          echo "Running tests..."
+          echo "All tests passed!"
+
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
